@@ -1029,7 +1029,7 @@ async function cloudLoadMe(user){
 /* очередь: события и результаты не теряются при плохой связи */
 function cloudEv(kind, ref = null, val = null, data = null){
   if (!CLOUD || !ME) return;
-  const q = CQ.get(); q.push({qid:qid(), t:'events', uid:ME.id, row:{kind, ref: ref == null ? null : String(ref), val, data, at: new Date().toISOString()}}); CQ.set(q); cloudFlushSoon();
+  const q = CQ.get(); q.push({qid:qid(), t:'events', uid:ME.id, row:{kind, ref: ref == null ? null : String(ref), val, data: {...(data || {}), course:'kuod'}, at: new Date().toISOString()}}); CQ.set(q); cloudFlushSoon();
 }
 let cfT = null, cfBusy = false;
 const cloudFlushSoon = () => { clearTimeout(cfT); cfT = setTimeout(cloudFlush, 3000); };
